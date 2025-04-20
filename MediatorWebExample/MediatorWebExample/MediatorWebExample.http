@@ -1,0 +1,6 @@
+@MediatorWebExample_HostAddress = http://localhost:5145
+
+GET {{MediatorWebExample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

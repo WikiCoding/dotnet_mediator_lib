@@ -1,0 +1,32 @@
+using MediatorWebExample.Commands;
+using MediatorWebExample.Handlers;
+using MediatorWebExample.MediatorLib;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<Mediator>();
+builder.Services.AddScoped<IRequestHandler<CommandRequest, CommandResponse>, CreateTaskCommandHandler>();
+builder.Services.AddScoped<IRequestHandler<UpdateReq, UpdateRes>, UpdateTaskCommandHandler>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
